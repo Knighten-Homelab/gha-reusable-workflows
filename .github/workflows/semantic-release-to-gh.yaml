@@ -6,7 +6,6 @@
       inputs:
         runs-on:
           description: The type of runner to use for the job.
-          required: true
           default: github-arc-runners
           type: string
   
