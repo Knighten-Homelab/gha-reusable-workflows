@@ -3,6 +3,12 @@
   
   on:
     workflow_call:
+      inputs:
+        runs-on:
+          description: The type of runner to use for the job.
+          required: true
+          default: github-arc-runners
+          type: string
   
   permissions:
     contents: read
@@ -10,7 +16,7 @@
   jobs:
     github-release:
       name: GitHub Release
-      runs-on: github-arc-runners
+      runs-on: ${{ inputs.runs-on }}
       permissions:
         contents: write
         issues: write
