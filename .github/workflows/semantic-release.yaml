@@ -15,7 +15,7 @@
   
   jobs:
     github-release:
-      name: GitHub Release
+      name: Semantic Release to GitHub
       runs-on: ${{ inputs.runs-on }}
       permissions:
         contents: write
