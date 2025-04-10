@@ -1,93 +1,92 @@
 ---
-  name: Semantic Release
-  
-  on:
-    workflow_call:
-      inputs:
-        runs-on:
-          description: The type of runner to use for the job.
-          default: github-arc-runners
-          type: string
-  
-  permissions:
-    contents: read
-  
-  jobs:
-    github-release:
-      name: Semantic Release to GitHub
-      runs-on: ${{ inputs.runs-on }}
-      permissions:
-        contents: write
-        issues: write
-        pull-requests: write
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-  
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: "20"
-  
-        - name: Write .releaserc.yaml
-          run: |
-            cat <<'EOF' > .releaserc.yaml
-            branches: 
-              - name: main
-                prerelease: false
-                channel: latest
-  
-            ci: true
-            debug: true
-            dryRun: false
-            tagFormat: '${version}'
-  
-            plugins:
-              - "@semantic-release/commit-analyzer"
-              - "@semantic-release/changelog"
-              - "@semantic-release/git"
-              - "@semantic-release/github"
-  
-            preset: 'conventionalcommits'
-  
-            verifyConditions:
-              - '@semantic-release/changelog'
-              - '@semantic-release/git'
-              - '@semantic-release/github'
-  
-            analyzeCommits:
-              - path: '@semantic-release/commit-analyzer'
-  
-            generateNotes:
-              - path: '@semantic-release/release-notes-generator'
-                writerOpts:
-                  groupBy: 'type'
-                  commitGroupsSort: 'title'
-                  commitsSort: 'header'
-                linkCompare: true
-                linkReferences: true
-  
-            prepare:
-              - path: '@semantic-release/changelog'
-              - path: '@semantic-release/git'
-                message: 'RELEASE: ${nextRelease.version}'
-                assets: ['CHANGELOG.md']
-  
-            publish:
-              - path: '@semantic-release/github'
-            EOF
-  
-        - name: Install semantic-release dependencies
-          run: |
-            npm install @semantic-release/commit-analyzer@13.0.1 \
-                        @semantic-release/changelog@6.0.3 \
-                        @semantic-release/git@10.0.1 \
-                        @semantic-release/github@11.0.1 \
-                        conventional-changelog-conventionalcommits@8.0.0 \
-                        semantic-release@24.2.3
-  
-        - name: GitHub Release
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: npx semantic-release
-  
+name: Semantic Release
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        description: The type of runner to use for the job.
+        default: github-arc-runners
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  github-release:
+    name: Semantic Release to GitHub
+    runs-on: ${{ inputs.runs-on }}
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Write .releaserc.yaml
+        run: |
+          cat <<'EOF' > .releaserc.yaml
+          branches: 
+            - name: main
+              prerelease: false
+              channel: latest
+
+          ci: true
+          debug: true
+          dryRun: false
+          tagFormat: '${version}'
+
+          plugins:
+            - "@semantic-release/commit-analyzer"
+            - "@semantic-release/changelog"
+            - "@semantic-release/git"
+            - "@semantic-release/github"
+
+          preset: 'conventionalcommits'
+
+          verifyConditions:
+            - '@semantic-release/changelog'
+            - '@semantic-release/git'
+            - '@semantic-release/github'
+
+          analyzeCommits:
+            - path: '@semantic-release/commit-analyzer'
+
+          generateNotes:
+            - path: '@semantic-release/release-notes-generator'
+              writerOpts:
+                groupBy: 'type'
+                commitGroupsSort: 'title'
+                commitsSort: 'header'
+              linkCompare: true
+              linkReferences: true
+
+          prepare:
+            - path: '@semantic-release/changelog'
+            - path: '@semantic-release/git'
+              message: 'RELEASE: ${nextRelease.version}'
+              assets: ['CHANGELOG.md']
+
+          publish:
+            - path: '@semantic-release/github'
+          EOF
+
+      - name: Install semantic-release dependencies
+        run: |
+          npm install @semantic-release/commit-analyzer@13.0.1 \
+                      @semantic-release/changelog@6.0.3 \
+                      @semantic-release/git@10.0.1 \
+                      @semantic-release/github@11.0.1 \
+                      conventional-changelog-conventionalcommits@8.0.0 \
+                      semantic-release@24.2.3
+
+      - name: GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
