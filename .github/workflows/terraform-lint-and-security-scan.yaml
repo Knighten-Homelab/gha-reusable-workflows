@@ -61,9 +61,7 @@ jobs:
         with:
           scan-type: "config"
           scan-ref: ${{ inputs.infra-directory }}
-          hide-progress: true
           format: "sarif"
           output: "trivy-results.sarif"
           exit-code: "1"
-          ignore-unfixed: true
           severity: "CRITICAL,HIGH"
