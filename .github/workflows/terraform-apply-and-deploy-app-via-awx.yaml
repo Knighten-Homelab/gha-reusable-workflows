@@ -34,6 +34,7 @@ on:
 
 jobs: 
   terraform-apply:
+    name: Terraform Apply
     runs-on: ${{ inputs.runs-on }}
     permissions:
       contents: read
@@ -93,6 +94,7 @@ jobs:
           terraform apply -var-file=envs/${{ inputs.environment }}.tfvars -auto-approve
 
   create-awx-resources:
+    name: Create AWX Resources
     runs-on: ${{ inputs.runs-on }}
     needs:
       - terraform-apply
@@ -138,6 +140,7 @@ jobs:
             ${{ inputs.awx-resource-creation-script }}
   
   deploy-app-via-awx:
+    name: Deploy App via AWX
     runs-on: ${{ inputs.runs-on }}
     needs:
       - create-awx-resources
