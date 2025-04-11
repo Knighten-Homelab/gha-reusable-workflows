@@ -45,6 +45,11 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
+      - name: Install Node.js (Dependency Terraform)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
 
