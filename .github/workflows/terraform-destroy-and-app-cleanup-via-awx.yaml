@@ -46,8 +46,8 @@ jobs:
         id: import-secrets
         uses: hashicorp/vault-action@v2
         with:
-          url: ${{ secrets.VAULT_URL_TEST }}
-          token: ${{ secrets.VAULT_TOKEN_TEST }}
+          url: ${{ secrets.VAULT_URL }}
+          token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             kv/data/awx host | AWX_HOST ;
             kv/data/awx user | AWX_USER ;
