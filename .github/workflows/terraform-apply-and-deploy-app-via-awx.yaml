@@ -92,7 +92,7 @@ jobs:
           AWS_S3_STATE_BUCKET: ${{ steps.import-secrets.outputs.MINIO_TF_STATE_BUCKET }}
           PM_API_TOKEN_ID: ${{ steps.import-secrets.outputs.PVE_API_TOKEN_ID }}
           PM_API_TOKEN_SECRET: ${{ steps.import-secrets.outputs.PVE_API_TOKEN_SECRET }}
-          PDNS_API_KEY: ${{ steps.import-secrets.outputs.PDNS_API_KEY }}
+          TF_VAR_pdns_api_key: ${{ steps.import-secrets.outputs.PDNS_API_KEY }}
           TF_VAR_pve_ci_ssh_private_key: ${{ steps.import-secrets.outputs.PVE_CI_SSH_PRIVATE_KEY }}
           TF_VAR_pve_ci_ssh_public_key: ${{ steps.import-secrets.outputs.PVE_CI_SSH_PUBLIC_KEY }}
         run: |
