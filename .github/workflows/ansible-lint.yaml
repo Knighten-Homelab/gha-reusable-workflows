@@ -1,0 +1,38 @@
+---
+name: Ansible Lint
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        description: The type of runner to use for the job.
+        default: github-arc-runners
+        type: string
+      ansible-directory:
+        description: The directory containing the Ansible code.
+        default: ansible
+        type: string
+
+jobs:
+  ansible-lint:
+    name: Ansible Lint
+    runs-on: ${{ inputs.runs-on }}
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+
+      - name: Install Python Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run ansible-lint
+        working-directory: ${{ inputs.ansible-directory }}
+        run: |
+          ansible-lint -c .ansible-lint
