@@ -1,0 +1,35 @@
+---
+name: GitHub - Get Latest Repo Tag
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        description: The type of runner to use for the job.
+        default: github-arc-runners
+        type: string
+    outputs:
+      latest-tag:
+        description: The latest tag from the repository.
+        value: ${{ jobs.fetch-latest-tag.outputs.tag }}
+
+jobs:
+  fetch-latest-tag:
+    runs-on: github-arc-runners
+    outputs:
+      tag: ${{ steps.get_release.outputs.tag }}
+    steps:
+      - name: Get Latest Release Tag
+        id: get_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG=$(curl -s \
+            -H "Authorization: token ${GITHUB_TOKEN}" \
+            https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest | jq -r .tag_name)
+          if [ -z "$TAG" ] || [ "$TAG" == "null" ]; then
+            echo "No release tag found!" >&2
+            exit 1
+          fi
+          echo "Latest release tag is: $TAG"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
