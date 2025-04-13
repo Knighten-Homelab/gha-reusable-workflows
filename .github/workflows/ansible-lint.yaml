@@ -12,6 +12,10 @@ on:
         description: The directory containing the Ansible code.
         default: ansible
         type: string
+      ref:
+        description: The Git reference (branch, tag, or SHA) to check out.
+        default: ""
+        type: string
 
 jobs:
   ansible-lint:
@@ -22,6 +26,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref != '' && inputs.ref || github.ref }}
 
       - name: Install Python
         uses: actions/setup-python@v5
