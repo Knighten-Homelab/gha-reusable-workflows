@@ -12,12 +12,16 @@ on:
         description: The directory containing the Terraform code.
         default: infra
         type: string
+      ansible-directory:
+        description: The directory containing the Ansible code.
+        default: ansible
+        type: string
       environment:
         description: The deployment environment (e.g., test, prod).
         default: test
         type: string
-      awx-resource-deletion-script:
-        description: The script to run for AWX resource deletion.
+      awx-resource-deletion-playbook:
+        description: The playbook to run for AWX resource deletion.
         type: string
         required: true
       awx-undeploy-template-name:
@@ -174,12 +178,12 @@ jobs:
           CONTROLLER_HOST: ${{ steps.import-secrets.outputs.AWX_HOST }}
           CONTROLLER_USERNAME: ${{ steps.import-secrets.outputs.AWX_USER}}
           CONTROLLER_PASSWORD: ${{ steps.import-secrets.outputs.AWX_PASSWORD }}
-        working-directory: ansible
+        working-directory: ${{ inputs.ansible-directory }}
         run: |
           ansible-playbook \
             -i localhost \
             -e @envs/${{ inputs.environment }}.yaml \
-            ${{ inputs.awx-resource-deletion-script }}
+            ${{ inputs.awx-resource-deletion-playbook }}
 
   terraform-destroy:
     name: Terraform Destroy

@@ -12,12 +12,16 @@ on:
         description: The directory containing the Terraform code.
         default: infra
         type: string
+      ansible-directory:
+        description: The directory containing the Ansible code.
+        default: ansible
+        type: string
       environment:
         description: The deployment environment (e.g., test, prod).
         default: test
         type: string
-      awx-resource-creation-script:
-        description: The script to run for AWX resource creation.
+      awx-resource-creation-playbook:
+        description: The playbook to run for AWX resource creation.
         type: string
         required: true
       awx-deploy-template-name:
@@ -145,12 +149,12 @@ jobs:
           CONTROLLER_HOST: ${{ steps.import-secrets.outputs.AWX_HOST }}
           CONTROLLER_USERNAME: ${{ steps.import-secrets.outputs.AWX_USER}}
           CONTROLLER_PASSWORD: ${{ steps.import-secrets.outputs.AWX_PASSWORD }}
-        working-directory: ansible
+        working-directory: ${{ inputs.ansible-directory }}
         run: |
           ansible-playbook \
             -i localhost \
             -e @envs/${{ inputs.environment }}.yaml \
-            ${{ inputs.awx-resource-creation-script }}
+            ${{ inputs.awx-resource-creation-playbook }}
   
   deploy-app-via-awx:
     name: Deploy App via AWX

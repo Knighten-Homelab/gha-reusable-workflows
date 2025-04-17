@@ -38,6 +38,7 @@ Runs Terraform apply to create infrastructure, creates AWX resources via an Ansi
 #### Inputs
 - `runs-on`: The type of runner to use for the job. Default is `github-arc-runners`.
 - `infra-directory`: The directory containing the Terraform configuration files. Default is `infra`.
+- `ansible-directory`: The directory containing the Ansible playbooks. Default is `ansible`.
 - `environment`: The environment to deploy to. Default is `test`.
 - `awx-resource-creation-playbook`: The Ansible playbook used to create AWX resources.
 - `awx-deploy-template-name:`: The name of the AWX job template used to deploy the app.
@@ -54,6 +55,7 @@ Runs Terraform destroy to remove infrastructure, uninstalls the app using the AW
 #### Inputs
 - `runs-on`: The type of runner to use for the job. Default is `github-arc-runners`.
 - `infra-directory`: The directory containing the Terraform configuration files. Default is `infra`.
+- `ansible-directory`: The directory containing the Ansible playbooks. Default is `ansible`.
 - `environment`: The environment to deploy to. Default is `test`.
 - `awx-resource-creation-playbook`: The Ansible playbook used to create AWX resources.
 - `awx-deploy-template-name:`: The name of the AWX job template used to deploy the app.
