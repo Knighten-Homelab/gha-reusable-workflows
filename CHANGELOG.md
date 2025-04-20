@@ -1,3 +1,9 @@
+## [1.1.3](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.1.2...1.1.3) (2025-04-20)
+
+### Bug Fixes
+
+* made awx_project_branch equal to run ref ([cb79b92](https://github.com/Knighten-Homelab/gha-reusable-workflows/commit/cb79b9274ec66a61d3dfedfb515700871dd43228))
+
 ## [1.1.2](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.1.1...1.1.2) (2025-04-20)
 
 ### Bug Fixes
