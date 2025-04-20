@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.1.0...1.1.1) (2025-04-20)
+
+### Bug Fixes
+
+* removed default dir in awx playback gha ([52b4b62](https://github.com/Knighten-Homelab/gha-reusable-workflows/commit/52b4b6209569e31515164f6d7b07c2e8254fd81b))
+
 ## [1.1.0](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.0.0...1.1.0) (2025-04-20)
 
 ### Features
