@@ -1,3 +1,9 @@
+## [1.1.2](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.1.1...1.1.2) (2025-04-20)
+
+### Bug Fixes
+
+* moved from pipx to pip for awx resource playbook gha ([fc7572c](https://github.com/Knighten-Homelab/gha-reusable-workflows/commit/fc7572c8b496ce602e315d7c524ceef13e409754))
+
 ## [1.1.1](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.1.0...1.1.1) (2025-04-20)
 
 ### Bug Fixes
