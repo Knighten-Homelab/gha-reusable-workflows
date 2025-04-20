@@ -1,0 +1,82 @@
+---
+name: Execute AWX Resource Creation Playbook
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        description: The type of runner to use for the job.
+        default: github-arc-runners
+        type: string
+      ansible-directory:
+        description: The directory containing the Ansible code.
+        default: ansible
+        type: string
+      environment:
+        description: The deployment environment (e.g., test, prod).
+        default: test
+        type: string
+      awx-resource-playbook:
+        description: The playbook to run for AWX resource creation/deletion.
+        type: string
+      ref:
+        description: The Git reference (branch, tag, or SHA) to checkout.
+        default: ""
+        type: string
+    secrets:
+      VAULT_URL:
+        description: The URL of the Vault server.
+        required: true
+      VAULT_TOKEN:
+        description: The token for accessing the Vault server.
+        required: true
+
+jobs:
+  execute-playbook:
+    name: Execute AWX Resource Creation Playbook
+    runs-on: ${{ inputs.runs-on }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: ${{ inputs.ansible-directory }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref != '' && inputs.ref || github.ref }}
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+
+      - name: Install Ansible
+        run: pipx install --include-deps ansible
+
+      - name: Install AWX Ansible Collection
+        run: ansible-galaxy collection install awx.awx
+
+      - name: Import AWX Secrets
+        id: import-secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: ${{ secrets.VAULT_URL}}
+          token: ${{ secrets.VAULT_TOKEN }}
+          secrets: |
+            kv/data/awx host | AWX_HOST ;
+            kv/data/awx user | AWX_USER ;
+            kv/data/awx pw | AWX_PASSWORD ;
+
+      - name: Run AWX Resource Creation Playbook
+        env:
+          CONTROLLER_HOST: ${{ steps.import-secrets.outputs.AWX_HOST }}
+          CONTROLLER_USERNAME: ${{ steps.import-secrets.outputs.AWX_USER}}
+          CONTROLLER_PASSWORD: ${{ steps.import-secrets.outputs.AWX_PASSWORD }}
+        working-directory: ${{ inputs.ansible-directory }}
+        run: |
+          ansible-playbook \
+            -i localhost \
+            -e @envs/${{ inputs.environment }}.yaml \
+            ${{ inputs.awx-resource-playbook }}
