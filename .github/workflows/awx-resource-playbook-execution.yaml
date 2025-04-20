@@ -76,4 +76,5 @@ jobs:
           ansible-playbook \
             -i localhost \
             -e @envs/${{ inputs.environment }}.yaml \
+            -e awx_project_branch=${{ inputs.ref }} \
             ${{ inputs.awx-resource-playbook }}
