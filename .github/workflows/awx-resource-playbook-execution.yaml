@@ -50,7 +50,7 @@ jobs:
           cache: 'pip'
 
       - name: Install Ansible
-        run: pipx install --include-deps ansible
+        run: pip install ansible
 
       - name: Install AWX Ansible Collection
         run: ansible-galaxy collection install awx.awx
