@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.0.0...1.1.0) (2025-04-20)
+
+### Features
+
+* created gha to deploy an awx resource based playbook ([89bc917](https://github.com/Knighten-Homelab/gha-reusable-workflows/commit/89bc917728c54317af20867a1e3fb16983c245b4))
+
 ## [1.0.0](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/...1.0.0) (2025-04-17)
 
 ### Bug Fixes
