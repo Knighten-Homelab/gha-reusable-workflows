@@ -54,6 +54,8 @@ jobs:
   destroy-awx-resources:
     name: Delete AWX Resources
     uses: Knighten-Homelab/gha-reusable-workflows/.github/workflows/awx-resource-playbook-execution.yaml@main
+    needs:
+      - destroy-app-cleanup
     with:
       ansible-directory: ${{ inputs.ansible-directory }}
       environment: ${{ inputs.environment }}

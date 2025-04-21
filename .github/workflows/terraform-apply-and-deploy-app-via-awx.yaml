@@ -124,6 +124,8 @@ jobs:
   deploy-app-via-awx:
     name: Deploy App via AWX
     uses: Knighten-Homelab/gha-reusable-workflows/.github/workflows/awx-launch-job-template.yaml@main
+    needs:
+      - create-awx-resources
     with:
       runs-on: ${{ inputs.runs-on }}
       awx-job-template-name: ${{ inputs.awx-deploy-template-name }}
