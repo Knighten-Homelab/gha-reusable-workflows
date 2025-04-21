@@ -1,3 +1,9 @@
+## [1.2.3](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.2.2...1.2.3) (2025-04-21)
+
+### Bug Fixes
+
+* renamed job step for awx resource creation gha ([1b12223](https://github.com/Knighten-Homelab/gha-reusable-workflows/commit/1b12223d6c2008f275bdeb33c8af20a3378c6bd6))
+
 ## [1.2.2](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.2.1...1.2.2) (2025-04-21)
 
 ### Bug Fixes
