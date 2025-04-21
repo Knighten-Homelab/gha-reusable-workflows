@@ -33,7 +33,7 @@ on:
 
 jobs:
   execute-playbook:
-    name: Execute AWX Resource Creation Playbook
+    name: Execute AWX Resource Playbook
     runs-on: ${{ inputs.runs-on }}
     permissions:
       contents: read
