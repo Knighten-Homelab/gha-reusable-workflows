@@ -78,7 +78,7 @@ Runs Terraform lint and security scan (Trivy) on the repo to check for best prac
 
 Runs an Ansible playbook to create, delete or modify AWX resources. At a high level the awx.awx collection is installed and then the specified playbook is called with the required AWX connection and authentication info.
 
-Note: the `environment` input variable is used to read from a variable file that is stored in  `{{ ansible-directory }}/envs`. The variable file is named `{{ environment }}.yml` and is used to set the required variables for the playbook execution.
+Note: the `environment` input variable is used to read from a variable file that is stored in  `{{ ansible-directory }}/envs`. The variable file is named `{{ environment }}.yaml` and is used to set the required variables for the playbook execution.
 
 #### Inputs
 - `runs-on`: The type of runner to use for the job. Default is `github-arc-runners`.
@@ -86,6 +86,18 @@ Note: the `environment` input variable is used to read from a variable file that
 - `environment`: The environment to deploy to. Default is `test`.
 - `awx-resource-playbook`: The Ansible playbook used to create AWX resources.
 - `ref`: The git reference to checkout. Default is current workflow execution branch.
+
+#### Secrets
+- `VAULT_URL`: The URL of the HashiCorp Vault instance.
+- `VAULT_TOKEN`: The token used to authenticate with the HashiCorp Vault instance.
+
+### [Launch AWX Job Template](.github/workflows/awx-launch-job-template.yaml)
+
+Launches an AWX job template using the AWX API.
+
+#### Inputs
+- `runs-on`: The type of runner to use for the job. Default is `github-arc-runners`.
+- `awx-job-template-name`: The name of the AWX job template to launch.
 
 #### Secrets
 - `VAULT_URL`: The URL of the HashiCorp Vault instance.
