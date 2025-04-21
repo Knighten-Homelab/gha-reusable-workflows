@@ -1,3 +1,9 @@
+## [1.1.4](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.1.3...1.1.4) (2025-04-21)
+
+### Bug Fixes
+
+* moved end-to-end deployment ghas to use new awx playbook gha ([eb5c661](https://github.com/Knighten-Homelab/gha-reusable-workflows/commit/eb5c661c8a4065209776ac24b06a2280926a5f98))
+
 ## [1.1.3](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.1.2...1.1.3) (2025-04-20)
 
 ### Bug Fixes
