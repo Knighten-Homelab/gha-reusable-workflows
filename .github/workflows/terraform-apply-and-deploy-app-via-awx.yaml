@@ -110,51 +110,15 @@ jobs:
 
   create-awx-resources:
     name: Create AWX Resources
-    runs-on: ${{ inputs.runs-on }}
-    needs:
-      - terraform-apply
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.ref != '' && inputs.ref || github.ref }}
-
-      - name: Install Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-          cache: 'pip'
-
-      - name: Install Python Dependencies
-        run: pip install -r requirements.txt
-
-      - name: Install Ansible Playbook Dependencies
-        run: ansible-galaxy collection install awx.awx
-
-      - name: Import Secrets
-        id: import-secrets
-        uses: hashicorp/vault-action@v2
-        with:
-          url: ${{ secrets.VAULT_URL}}
-          token: ${{ secrets.VAULT_TOKEN }}
-          secrets: |
-            kv/data/awx host | AWX_HOST ;
-            kv/data/awx user | AWX_USER ;
-            kv/data/awx pw | AWX_PASSWORD ;
-
-      - name: Run AWX Resource Creation Playbook
-        env:
-          CONTROLLER_HOST: ${{ steps.import-secrets.outputs.AWX_HOST }}
-          CONTROLLER_USERNAME: ${{ steps.import-secrets.outputs.AWX_USER}}
-          CONTROLLER_PASSWORD: ${{ steps.import-secrets.outputs.AWX_PASSWORD }}
-        working-directory: ${{ inputs.ansible-directory }}
-        run: |
-          ansible-playbook \
-            -i localhost \
-            -e @envs/${{ inputs.environment }}.yaml \
-            ${{ inputs.awx-resource-creation-playbook }}
+    uses: Knighten-Homelab/gha-reusable-workflows/.github/workflows/awx-resource-playbook-execution.yaml@main
+    with:
+      ansible-directory: ${{ inputs.ansible-directory }}
+      environment: ${{ inputs.environment }}
+      awx-resource-playbook: ${{ inputs.awx-resource-creation-playbook }}
+      ref: ${{ github.head_ref }}
+    secrets:
+      VAULT_URL: ${{ secrets.VAULT_URL }}
+      VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
   
   deploy-app-via-awx:
     name: Deploy App via AWX
