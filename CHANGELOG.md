@@ -1,3 +1,9 @@
+## [1.2.2](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.2.1...1.2.2) (2025-04-21)
+
+### Bug Fixes
+
+* added additional needs statement to end-to-end deploy gha ([2357008](https://github.com/Knighten-Homelab/gha-reusable-workflows/commit/23570082728a7ed8c7cc39d62c81c41f75e01be4))
+
 ## [1.2.1](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.2.0...1.2.1) (2025-04-21)
 
 ### Bug Fixes
