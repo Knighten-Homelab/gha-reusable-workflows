@@ -73,3 +73,20 @@ Runs Terraform lint and security scan (Trivy) on the repo to check for best prac
 - `runs-on`: The type of runner to use for the job. Default is `github-arc-runners`.
 - `infra-directory`: The directory containing the Terraform configuration files. Default is `infra`.
 - `ref`: The git reference to checkout. Default is current workflow execution branch.
+
+### [Execute AWX Resource Playbook](.github/workflows/awx-resource-playbook-execution.yaml)
+
+Runs an Ansible playbook to create, delete or modify AWX resources. At a high level the awx.awx collection is installed and then the specified playbook is called with the required AWX connection and authentication info.
+
+Note: the `environment` input variable is used to read from a variable file that is stored in  `{{ ansible-directory }}/envs`. The variable file is named `{{ environment }}.yml` and is used to set the required variables for the playbook execution.
+
+#### Inputs
+- `runs-on`: The type of runner to use for the job. Default is `github-arc-runners`.
+- `ansible-directory`: The directory containing the Ansible playbooks. Default is `ansible`.
+- `environment`: The environment to deploy to. Default is `test`.
+- `awx-resource-playbook`: The Ansible playbook used to create AWX resources.
+- `ref`: The git reference to checkout. Default is current workflow execution branch.
+
+#### Secrets
+- `VAULT_URL`: The URL of the HashiCorp Vault instance.
+- `VAULT_TOKEN`: The token used to authenticate with the HashiCorp Vault instance.
