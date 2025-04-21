@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.1.4...1.2.0) (2025-04-21)
+
+### Features
+
+* created gha to launch awx job template ([741d877](https://github.com/Knighten-Homelab/gha-reusable-workflows/commit/741d877ea6e9ce36761d8082c4554b8e24f9365a))
+
 ## [1.1.4](https://github.com/Knighten-Homelab/gha-reusable-workflows/compare/1.1.3...1.1.4) (2025-04-21)
 
 ### Bug Fixes
